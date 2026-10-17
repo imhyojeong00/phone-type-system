@@ -1,0 +1,149 @@
+#top-tools {
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+#top-tools > button { position: static; }
+#lang-toggle {
+  min-width: 42px;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: #888;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 7px 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+#lang-toggle:hover { color: #444; }
+html[lang="ko"] #typed-display:empty::before { content: "A–Z 입력"; }
+
+#kbd, #kbd-toggle { display: none; }
+
+.touch-ui,
+.touch-ui body { -webkit-text-size-adjust: 100%; }
+.touch-ui button { -webkit-tap-highlight-color: transparent; }
+
+.touch-ui #top-tools {
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  left: 10px;
+  right: 10px;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.touch-ui #top-tools > button { height: 34px; box-sizing: border-box; }
+
+.touch-ui #main-label {
+  top: var(--label-top, 54px);
+  left: 12px;
+  right: 12px;
+  width: auto;
+  transform: none;
+  max-height: calc(var(--stage-top, 150px) - var(--label-top, 54px) - 4px);
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.touch-ui .lb-head { font-size: 13px; }
+.touch-ui .lb-dims { margin-top: 3px; font-size: 10.5px; white-space: nowrap; }
+.touch-ui .thick-bar { width: 52px; }
+
+.touch-ui #stage,
+.touch-ui #tags {
+  top: var(--stage-top, 150px);
+  bottom: var(--dock-h, 0px);
+}
+.touch-ui #loading { top: calc((var(--stage-top, 150px) + 100vh - var(--dock-h, 0px)) / 2); }
+.touch-ui .tag { font-size: 14px; padding: 5px 11px; }
+
+.touch-ui #ui-bar {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: none;
+  max-width: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 8px calc(8px + env(safe-area-inset-bottom, 0px));
+  border-radius: 16px 16px 0 0;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: none;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.touch-ui #typed-display {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: none;
+  margin-left: 6px;
+  font-size: 18px;
+  line-height: 30px;
+}
+.touch-ui #symbol-row { border-left: none; padding-left: 0; }
+.touch-ui #clear-btn { width: 34px; height: 34px; font-size: 20px; }
+.touch-ui #kbd-toggle {
+  display: block;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #999;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.touch-ui #kbd {
+  --gap: 5px;
+  --kw: min(calc((100vw - 16px - 9 * var(--gap)) / 10), 54px);
+  --kh: 44px;
+  display: block;
+  flex: 1 0 100%;
+  order: 10;
+}
+.kbd-row { display: flex; justify-content: center; gap: var(--gap); margin-bottom: 7px; }
+.kbd-row:last-child { margin-bottom: 0; }
+.key {
+  flex: 0 0 var(--kw);
+  height: var(--kh);
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+}
+.key.pressed { background: #222; border-color: #222; color: #fff; }
+.key-fn { background: #f3f3f2; color: #555; }
+.key-back { flex-basis: calc(var(--kw) * 1.5 + var(--gap) / 2); }
+.kbd-nav .key { flex: 1 1 0; max-width: calc(var(--kw) * 2.2); }
+
+body.kbd-collapsed #kbd { display: none; }
+
+@media (max-height: 500px) {
+  .touch-ui #kbd { --kh: 32px; }
+  .kbd-row { margin-bottom: 4px; }
+}

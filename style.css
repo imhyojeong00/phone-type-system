@@ -1,0 +1,199 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background-color: #ffffff;
+  transition: background-color 560ms ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Segoe UI", sans-serif;
+}
+body.xray-mode { background-color: #a9aaa3; }
+
+#stage {
+  position: fixed;
+  inset: 0;
+  touch-action: none;
+  cursor: grab;
+}
+#stage.dragging { cursor: grabbing; }
+#stage canvas { display: block; }
+
+#tags {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.tag {
+  position: absolute;
+  transform: translate(-50%, 0);
+  pointer-events: auto;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #999;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 2px 9px;
+  cursor: pointer;
+  transition: color 240ms ease, border-color 240ms ease;
+}
+.tag:hover { color: #333; border-color: rgba(0, 0, 0, 0.15); }
+.tag.is-focus { color: #c43e2a; border-color: rgba(196, 62, 42, 0.35); }
+body.xray-mode .tag { color: #555; }
+
+#main-label {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(880px, 78vw);
+  text-align: center;
+  font-weight: 300;
+  color: #444;
+  font-size: 13px;
+  z-index: 20;
+  pointer-events: none;
+  line-height: 1.5;
+}
+.lb-head { font-size: 14px; color: #222; }
+.lb-key {
+  display: inline-block;
+  min-width: 18px;
+  margin-right: 8px;
+  padding: 0 6px;
+  border: 1px solid rgba(196, 62, 42, 0.45);
+  border-radius: 999px;
+  color: #c43e2a;
+  font-size: 12px;
+  line-height: 18px;
+  vertical-align: 1px;
+}
+.lb-year { margin-left: 8px; color: #999; font-size: 12px; }
+.lb-dims { margin-top: 5px; font-size: 11px; color: #777; }
+.lb-dims b { font-weight: 500; color: #333; }
+.lb-note { color: #999; }
+body.xray-mode .lb-head { color: #111; }
+
+.thick-bar {
+  display: inline-block;
+  vertical-align: middle;
+  width: 90px;
+  height: 4px;
+  margin: 0 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.thick-bar i {
+  display: block;
+  height: 100%;
+  background: #c43e2a;
+}
+
+#loading {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #999;
+  pointer-events: none;
+  z-index: 6;
+}
+
+#xray-toggle, #sound-toggle {
+  position: fixed;
+  right: 22px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: #888;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 999px;
+  padding: 7px 13px;
+  cursor: pointer;
+}
+#xray-toggle { top: 20px; padding-left: 10px; }
+#sound-toggle { top: 64px; }
+#xray-toggle:hover, #sound-toggle:hover { color: #444; }
+#xray-toggle .xray-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ccc;
+}
+#xray-toggle[aria-pressed="true"] {
+  color: #eee;
+  background: rgba(30, 30, 30, 0.85);
+  border-color: rgba(0, 0, 0, 0.6);
+}
+#xray-toggle[aria-pressed="true"] .xray-dot {
+  background: #d8d6cf;
+}
+#sound-toggle[aria-pressed="false"] { color: #bbb; text-decoration: line-through; }
+
+#ui-bar {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(6px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  max-width: 90vw;
+}
+#typed-display {
+  font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #222;
+  min-width: 90px;
+  max-width: 46vw;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+#typed-display::-webkit-scrollbar { display: none; }
+#typed-display:empty::before { content: "TYPE A–Z"; color: #999; }
+#symbol-row { display: flex; padding-left: 10px; border-left: 1px solid rgba(0, 0, 0, 0.08); }
+#key-capture {
+  position: fixed;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  border: none;
+  padding: 0;
+  pointer-events: none;
+}
+#clear-btn {
+  background: transparent;
+  border: none;
+  color: #bbb;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#clear-btn:hover { color: #333; }
+
+.lb-x { color: #c43e2a; margin: 0 4px; }

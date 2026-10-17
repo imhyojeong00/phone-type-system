@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Phone-Type System</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+
+  <div id="top-tools">
+    <button id="xray-toggle" type="button" aria-pressed="false"><span class="xray-dot"></span><span data-ko="엑스레이">X-RAY</span></button>
+    <button id="sound-toggle" type="button" aria-pressed="true" data-ko="소리">SOUND</button>
+    <button id="lang-toggle" type="button" aria-label="한국어">KR</button>
+  </div>
+
+  <div id="stage"></div>
+  <div id="tags"></div>
+
+  <div id="main-label">TYPE A–Z</div>
+  <div id="loading" aria-live="polite"></div>
+
+  <div id="ui-bar">
+    <div id="typed-display"></div>
+    <input id="key-capture" type="text" autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" autofocus>
+    <div id="symbol-row">
+      <button id="clear-btn" type="button" aria-label="clear">×</button>
+    </div>
+  </div>
+
+  <script src="./vendor/three.min.js"></script>
+  <script src="./vendor/meshopt_decoder.js"></script>
+  <script src="./vendor/GLTFLoader.js"></script>
+  <script src="./vendor/RoomEnvironment.js"></script>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
